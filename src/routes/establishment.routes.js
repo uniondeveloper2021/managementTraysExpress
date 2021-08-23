@@ -3,25 +3,21 @@ const { verifyToken } = require("../middlewares/auth.jwt");
 const { check } = require("express-validator");
 const { getEstablishment, updateEstablishmentStatusFreeToFalse, postEstablishment,
     updateEstablishmentById, deleteEstablishmentById, searchEstablishmentByName,
-    updateEstablishmentByIdStatusInDeliveryToFalse, getEstablishmentAppointed,
-    getEstablishmentNotAppointed, } = require("../controllers/establishment.controller")
+    updateEstablishmentByIdStatusInDeliveryToFalse }
+    = require("../controllers/establishment.controller")
 const { validateFields } = require("../middlewares/validate_fields")
 const router = Router();
 
 router.get('/', [verifyToken], getEstablishment);
 
-router.get('/appointed', [verifyToken], getEstablishmentAppointed);
-
-router.get('/not-appointed', [verifyToken], getEstablishmentNotAppointed);
-
-router.post("/", 
+router.post("/",
     [check("name", "El nombre es obligatorio").not().isEmpty(),
     check("direction", "La direccion es obligatorio").not().isEmpty(),
     check("ean", "El EAN es obligatorio").not().isEmpty(),
     check("reception_hours", "El horario de recepcion es obligatorio").not().isEmpty(),
     check("cant_trays", "La cantidad de charolas es obligatorio").not().isEmpty(),
-    validateFields, verifyToken
-], postEstablishment)
+        validateFields, verifyToken
+    ], postEstablishment)
 
 router.get('/search/:name', [check("name", "El nombre obligatorio").not().isEmpty(),
     validateFields, verifyToken,

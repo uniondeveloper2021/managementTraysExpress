@@ -3,10 +3,7 @@ const User = require('../models/user.model')
 const Role = require('../models/role.model')
 const TypeUserVehicle = require('../models/type_user_vehicle.model')
 const AssignTrayVehicle = require('../models/assign_trays_vehicles.model')
-const Establishment = require('../models/establishment.model')
-const EstablishmentRoute = require('../models/establishment_routes.model')
 
-// TODO: implementar esta vista en flutter
 // TODO: realizar edicion de entrega de charolas
 const getDeliveryTraysEstablishmentByIdUser = async (req, res) => {
     try {
@@ -120,22 +117,17 @@ const postDeliveryTraysEstabl = async (req, res) => {
         const query = { id_user_supermark: id_user_agent, status_free: false, status_using: true };
         const queryRoute = { id_user_agent: id_user_agent, id_establishment: id_establishment };
 
-        const [newDeliveryTraysEstabl, assignFound, establishmentFound, establishmentRouteFound]
+        const [newDeliveryTraysEstabl, assignFound]
             = await Promise.all([
                 new DeliveryTraysEstabl({
                     trays_delivered, collected_trays, observation,
                     id_user_agent, id_establishment, id_incident, id_vehicle, id_day,
                     date, id_assign_trays_vehicle, status: true, status_is_delivery: true
                 }),
-                AssignTrayVehicle.findOne(query),
-                Establishment.findByIdAndUpdate(id_establishment, { status_is_delivery: true }),
-                EstablishmentRoute.findOne(queryRoute)
+                AssignTrayVehicle.findOne(query)
             ]);
 
-        const [newDeliveryTraysEstablSaved, establishmentRouteUpdate] = await Promise.all([
-            EstablishmentRoute.findByIdAndUpdate(establishmentRouteFound._id, { status_is_delivery: true }),
-            await newDeliveryTraysEstabl.save()
-        ]);
+        await newDeliveryTraysEstabl.save()
 
         return res.status(201).json({
             status: 201, data: newDeliveryTraysEstablSaved,
@@ -159,7 +151,7 @@ const updateDeliveryTraysEstablById = async (req, res) => {
             status: 400,
             message: "Entrega de charolas en el establecimiento no encontrado"
         });
- 
+
         await DeliveryTraysEstabl.findByIdAndUpdate(_id,
             { trays_delivered, collected_trays, observation, id_establishment });
 

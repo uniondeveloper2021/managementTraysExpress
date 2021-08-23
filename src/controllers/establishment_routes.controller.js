@@ -15,7 +15,7 @@ const postEstablishmentRoute = async (req, res) => {
             Role.findOne({ name: "SUPMARK_AGENT_ROLE" }),
             Establishment.findById(id_establishment),
             Day.findOne({number: number}),
-        ])
+        ]);
 
         if (!userFound)
             return res.status(202).json({ status: 202, message: "Usuario no encontrado" });
@@ -35,12 +35,8 @@ const postEstablishmentRoute = async (req, res) => {
         if (!userFound.status_free)
             return res.status(202).json({ status: 202, message: "El usuario no esta libre" });
 
-        if (!establishmentFound.status_free)
-            return res.status(202).json({ status: 202, message: "El establecimiento no esta libre" });
-
         const [lastRouteInsert, establishmentCreated, userUpdated] = await Promise.all([
             await Route.find().sort({ $natural: -1 }).limit(1),
-            Establishment.findByIdAndUpdate(id_establishment, { status_free: false }),
             User.findByIdAndUpdate(id_user_agent, { status_isRoute: true })
         ]);
 

@@ -14,7 +14,7 @@ const postEstablishment = async (req, res) => {
         if (establishmentFound) return res.status(202).json({
             status: 202,
             message: "El establecimiento ya existe"
-        })
+        });
         const establishmentSaved = await newEstablishment.save();
 
         return res.status(201).json({
@@ -43,40 +43,6 @@ const getEstablishment = async (req, res) => {
     }
 }
 
-// listar establecimientos que estan designados en una ruta
-const getEstablishmentAppointed = async (req, res) => {
-    try {
-        const query = { status_free: false }
-        const [total, establishment] = await Promise.all([
-            Establishment.countDocuments(query),
-            Establishment.find(query)
-        ])
-        return res.status(201).json({
-            status: 201, total, data: establishment,
-            message: "Todos los establecimientos que estan asignados a una ruta"
-        });
-    } catch (error) {
-        return res.status(400).json({ status: 400, message: "Error: " + error });
-    }
-}
-
-const getEstablishmentNotAppointed = async (req, res) => {
-    try {
-        const query = { status_free: true }
-        const [total, establishment] = await Promise.all([
-            Establishment.countDocuments(query),
-            Establishment.find(query)
-        ])
-        return res.status(201).json({
-            status: 201, total, data: establishment,
-            message: "Todos los establecimientos que no estan asignados a una ruta"
-        });
-    } catch (error) {
-        return res.status(400).json({ status: 400, message: "Error: " + error });
-    }
-}
-
-// TODO: cuando un establecimiento se registra en una ruta, colocar su status a false
 const updateEstablishmentStatusFreeToFalse = async (req, res) => {
     try {
         const _id = req.params.establishmentId;
@@ -184,8 +150,6 @@ module.exports = {
     searchEstablishmentByName,
     updateEstablishmentById,
     deleteEstablishmentById,
-    getEstablishmentAppointed,
-    getEstablishmentNotAppointed,
     updateEstablishmentByIdStatusInDeliveryToFalse,
     updateEstablishmentStatusFreeToFalse
 }

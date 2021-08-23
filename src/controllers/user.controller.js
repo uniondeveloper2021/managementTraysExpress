@@ -107,12 +107,12 @@ const getUserTypeGeneralStatusFree = async (req, res, name_role, message, status
 
 const getUserTypeSupermarketAgentNotAssignedRoute = async (req, res) => {
     await getUserTypeSupermarketAgentYesOrNotAppointed(req, res, false,
-        'SUPMARK_AGENT_ROLE', 'Todos los agentes de supermercado no asignados');
+        'SUPMARK_AGENT_ROLE', 'Todos los agentes de supermercado no asignados a una ruta');
 }
 
 const getUserTypeSupermarketAgentAssignedRoute = async (req, res) => {
     await getUserTypeSupermarketAgentYesOrNotAppointed(req, res, true,
-        'SUPMARK_AGENT_ROLE', 'Todos los agentes de supermercado asignados');
+        'SUPMARK_AGENT_ROLE', 'Todos los agentes de supermercado asignados a una ruta');
 }
 
 const getUserTypeSupermarketAgentYesOrNotAppointed = async (req, res, status_isRoute, name_role, message) => {
