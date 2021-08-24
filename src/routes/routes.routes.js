@@ -9,7 +9,6 @@ router.get('/', [verifyToken], getRoute);
 
 router.post("/", [
     check("name", "El nombre es obligatorio").not().isEmpty(),
-    check("number", "La numbero es obligatorio").not().isEmpty(),
     validateFields, verifyToken],
 postRoute)
 

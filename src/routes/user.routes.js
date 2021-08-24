@@ -51,7 +51,7 @@ router.put("/:userId", [check("userId", "El id es obligatorio").not().isEmpty(),
 check("userId", "No es un ID válido").isMongoId(), validateFields, verifyToken
 ], updateUserById);
 
-router.put("/status-free/:userId", [check("userId", "El id es obligatorio").not().isEmpty(),
+router.put("/status-free-to-false/:userId", [check("userId", "El id es obligatorio").not().isEmpty(),
 check("userId", "No es un ID válido").isMongoId(), validateFields, verifyToken
 ], updateUserAgentSupermarketStatusFreeToFalse);
 

@@ -196,6 +196,9 @@ const updateUserAgentSupermarketStatusFreeToFalse = async (req, res) => {
             status: 400, message: "El rol no existe"
         });
 
+        if (userFound.id_role.toString() != roleFound._id.toString())
+            return res.status(202).json({ status: 202, message: "El usuario no es agente" });
+
         await User.findByIdAndUpdate(_id, { status_free: false });
 
         return res.status(201).json({
