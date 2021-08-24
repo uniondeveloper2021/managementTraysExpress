@@ -35,14 +35,14 @@ const postEstablishmentRoute = async (req, res) => {
         if (!userFound.status_free)
             return res.status(202).json({ status: 202, message: "El usuario no esta libre" });
 
-        const [lastRouteInsert, establishmentCreated, userUpdated] = await Promise.all([
+        const [lastRouteInsert, userUpdated] = await Promise.all([
             await Route.find().sort({ $natural: -1 }).limit(1),
             User.findByIdAndUpdate(id_user_agent, { status_isRoute: true })
         ]);
 
         const newEstablishmentRoute = new EstablishmentRoute({
             status: true, id_user_agent, id_route: lastRouteInsert[0]._id, id_establishment,
-            id_day, status_is_delivery: false,
+            id_day: dayFound['_id'], status_is_delivery: false,
         })
 
         const establishmentRouteSaved = await newEstablishmentRoute.save();
