@@ -86,7 +86,7 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
 
         const cant_trays_establishment = establishmentFound['cant_trays'];
 
-        console.log("establishmentFound['cant_trays']: " +  ['cant_trays']);
+        console.log("establishmentFound['cant_trays']: " +  establishmentFound['cant_trays']);
 
         const result = cant_trays_establishment + trays_delivered - collected_trays;
 
@@ -119,7 +119,6 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
         return res.status(400).json({ status: 400, message: "Error: " + error });
     }
 }
-
 
 module.exports = {
     verifyDeliveryTraysEstablishment,
