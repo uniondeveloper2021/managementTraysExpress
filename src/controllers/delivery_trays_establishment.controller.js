@@ -4,7 +4,6 @@ const Role = require('../models/role.model')
 const TypeUserVehicle = require('../models/type_user_vehicle.model')
 const AssignTrayVehicle = require('../models/assign_trays_vehicles.model')
 
-// TODO: realizar edicion de entrega de charolas
 const getDeliveryTraysEstablishmentByIdUser = async (req, res) => {
     try {
         const id_user = req.params.userId;

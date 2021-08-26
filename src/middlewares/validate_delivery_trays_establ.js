@@ -27,7 +27,8 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
                 Day.findOne({ number: number_day }),
             ]);
 
-        // TODO: Validar si un usuario tiene una seleccion de vehiculo activa
+        console.log("establishmentRoutesFound");
+        console.log(establishmentRoutesFound)
 
         if (!establishmentRoutesFound)
             return res.status(202).json({
@@ -38,6 +39,10 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
             return res.status(202).json({
                 status: 202, message: "El establecimiento no le pertecene"
             });
+
+        console.log("dayFound._id.toString()");
+        // console.log(establishmentRoutesFound.id_day.toString())
+        // console.log(dayFound._id.toString());
 
         if (establishmentRoutesFound.id_day.toString() != dayFound._id.toString())
             return res.status(202).json({

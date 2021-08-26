@@ -41,9 +41,7 @@ const verifySelectUserVehicle = async (req, res, next) => {
 
         if (!userAgentFound.status_free)
             return res.status(202).json({
-                status: 202, message: "No puede seleccionar otro vehiculo " +
-                    "porque ahora usted cuenta con uno."
-            })
+                status: 202, message: "No puede seleccionar este vehiculo" });
 
         if (!userAuxiliarFound)
             return res.status(202).json({ status: 202, message: "El usuario auxiliar no existe" })
