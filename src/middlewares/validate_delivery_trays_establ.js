@@ -28,7 +28,7 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
             ]);
 
         console.log("establishmentRoutesFound");
-        console.log(establishmentRoutesFound)
+        console.log("establishmentRoutesFound: " + establishmentRoutesFound)
 
         if (!establishmentRoutesFound) return res.status(202).json({
                 status: 202, message: "El establecimiento no se encuentra en la ruta"
