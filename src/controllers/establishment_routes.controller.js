@@ -91,6 +91,10 @@ const getEstablishmentByRouteAndIdUserGeneral = async (req, res, status_is_deliv
                 $lookup: {
                     from: 'establishments', localField: 'id_establishment',
                     foreignField: '_id', as: 'establishment'
+                },
+                $lookup: {
+                    from: 'users', localField: 'id_user_agent',
+                    foreignField: '_id', as: 'user'
                 }
             },
         ])
