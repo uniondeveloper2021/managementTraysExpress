@@ -23,13 +23,24 @@ const postRoute = async (req, res) => {
 
 const getRoute = async (req, res) => {
     try {
-        const query = { status: true }
-        const [total, routes] = await Promise.all([
-            Route.countDocuments(query),
-            Route.find(query)
-        ])
+        // const query = { status: true }
+        // const [total, routes] = await Promise.all([
+        //     Route.countDocuments(query),
+        //     Route.find(query)
+        // ])
+
+        const information = await Route.aggregate([
+            {
+                $lookup: {
+                    from: 'establishmentroutes', localField: '_id',
+                    foreignField: 'id_route', as: 'establishment'
+                }
+            },
+        ]);
         return res.status(201).json({
-            status: 201, total, data: routes,
+            status: 201,
+            //  total, 
+            data: information,
             message: "Todas las rutas disponibles"
         });
     } catch (error) {
