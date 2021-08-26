@@ -30,8 +30,7 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
         console.log("establishmentRoutesFound");
         console.log(establishmentRoutesFound)
 
-        if (!establishmentRoutesFound)
-            return res.status(202).json({
+        if (!establishmentRoutesFound) return res.status(202).json({
                 status: 202, message: "El establecimiento no se encuentra en la ruta"
             });
 
@@ -41,8 +40,8 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
             });
 
         console.log("dayFound._id.toString()");
-        // console.log(establishmentRoutesFound.id_day.toString())
-        // console.log(dayFound._id.toString());
+        console.log(establishmentRoutesFound.id_day.toString())
+        console.log(dayFound._id.toString());
 
         if (establishmentRoutesFound.id_day.toString() != dayFound._id.toString())
             return res.status(202).json({
