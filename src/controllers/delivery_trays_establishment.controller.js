@@ -114,8 +114,7 @@ const postDeliveryTraysEstabl = async (req, res) => {
         const { id_assign_trays_vehicle, id_day, id_vehicle } = req.params;
 
         const query = { id_user_supermark: id_user_agent, status_free: false, status_using: true };
-        const queryRoute = { id_user_agent: id_user_agent, id_establishment: id_establishment };
-
+        
         const [newDeliveryTraysEstabl, assignFound]
             = await Promise.all([
                 new DeliveryTraysEstabl({
@@ -126,7 +125,7 @@ const postDeliveryTraysEstabl = async (req, res) => {
                 AssignTrayVehicle.findOne(query)
             ]);
 
-        await newDeliveryTraysEstabl.save()
+        const newDeliveryTraysEstablSaved = await newDeliveryTraysEstabl.save()
 
         return res.status(201).json({
             status: 201, data: newDeliveryTraysEstablSaved,
