@@ -86,7 +86,7 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
 
         const cant_trays_establishment = establishmentFound['cant_trays'];
 
-        console.log("establishmentFound['cant_trays']: " + establishmentFound['cant_trays']);
+        console.log("establishmentFound['cant_trays']: " +  ['cant_trays']);
 
         const result = cant_trays_establishment + trays_delivered - collected_trays;
 
@@ -98,6 +98,9 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
             });
 
         const total = assignByIdVehicle.cant_trays_delivery - trays_delivered + collected_trays;
+        console.log("assignByIdVehicle.cant_trays_delivery: " + assignByIdVehicle.cant_trays_delivery);
+        console.log("trays_delivered: " + trays_delivered);
+        console.log("collected_trays: " + collected_trays);
         console.log("total: " + total);
         if (total >= 0) {
             await Promise.all([
