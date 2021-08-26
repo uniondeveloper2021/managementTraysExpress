@@ -27,9 +27,6 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
                 Day.findOne({ number: number_day }),
             ]);
 
-        console.log("establishmentRoutesFound");
-        console.log("establishmentRoutesFound: " + establishmentRoutesFound)
-
         if (!establishmentRoutesFound) return res.status(202).json({
                 status: 202, message: "El establecimiento no se encuentra en la ruta"
             });
@@ -38,10 +35,6 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
             return res.status(202).json({
                 status: 202, message: "El establecimiento no le pertecene"
             });
-
-        console.log("dayFound._id.toString()");
-        console.log(establishmentRoutesFound.id_day.toString())
-        console.log(dayFound._id.toString());
 
         if (establishmentRoutesFound.id_day.toString() != dayFound._id.toString())
             return res.status(202).json({
@@ -93,7 +86,11 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
 
         const cant_trays_establishment = establishmentFound['cant_trays'];
 
+        console.log("establishmentFound['cant_trays']: " + establishmentFound['cant_trays']);
+
         const result = cant_trays_establishment + trays_delivered - collected_trays;
+
+        console.log("result: " + result);
 
         if (result < 0)
             return res.status(202).json({
@@ -101,6 +98,7 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
             });
 
         const total = assignByIdVehicle.cant_trays_delivery - trays_delivered + collected_trays;
+        console.log("total: " + total);
         if (total >= 0) {
             await Promise.all([
                 AssignTrayVehicle.findByIdAndUpdate(assignByIdVehicle._id,
