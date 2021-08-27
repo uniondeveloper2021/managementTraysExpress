@@ -74,13 +74,11 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
 
         if (!selectUserVehicleFound || selectUserVehicleFound.id_day.toString() != dayFound._id.toString())
             return res.status(202).json({
-                status: 202, message: "No puede entregar/recoger charolas porque el vehiculo " +
-                    "que tiene seleccionado es de otro dia"
-            });
+                status: 202, message: "No puede entregar/recoger charolas porque el vehiculo que tiene seleccionado es de otro dia" });
 
         if (!vehicleFound)
             return res.status(202).json({ status: 202, message: "El vehiculo no existe" });
-
+ 
         if (!incidentFound)
             return res.status(202).json({ status: 202, message: "Incidente no encontrado" });
 

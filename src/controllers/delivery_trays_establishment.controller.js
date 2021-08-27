@@ -138,6 +138,38 @@ const postDeliveryTraysEstabl = async (req, res) => {
     }
 }
 
+const postDeliveryTraysEstablDaySunday = async (req, res) => {
+    try {
+        const { trays_delivered, collected_trays, observation, date, id_user_agent,
+            id_establishment, id_incident } = req.body;
+
+        const { id_assign_trays_vehicle, id_day, id_vehicle } = req.params;
+
+        const query = { id_user_supermark: id_user_agent, status_free: false, status_using: true };
+        
+        const [newDeliveryTraysEstabl, assignFound]
+            = await Promise.all([
+                new DeliveryTraysEstabl({
+                    trays_delivered, collected_trays, observation,
+                    id_user_agent, id_establishment, id_incident, id_vehicle, id_day,
+                    date, id_assign_trays_vehicle, status: true, status_is_delivery: true
+                }),
+                AssignTrayVehicle.findOne(query)
+            ]);
+
+        const newDeliveryTraysEstablSaved = await newDeliveryTraysEstabl.save()
+
+        return res.status(201).json({
+            status: 201, data: newDeliveryTraysEstablSaved,
+            cant_trays: assignFound.cant_trays_delivery,
+            message: "Asignacion designado satisfactoriamente"
+        });
+
+    } catch (error) {
+        return res.status(400).json({ status: 400, message: "Error:" + error });
+    }
+}
+
 const updateDeliveryTraysEstablById = async (req, res) => {
     try {
         const _id = req.params.deliveryTraysEstablId;
@@ -167,5 +199,6 @@ module.exports = {
     getDeliveryTraysEstablishment,
     getDeliveryTraysEstablishmentByIdUser,
     postDeliveryTraysEstabl,
+    postDeliveryTraysEstablDaySunday,
     updateDeliveryTraysEstablById
 }

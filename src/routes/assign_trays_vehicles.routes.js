@@ -2,8 +2,8 @@ const { Router } = require("express");
 const { verifyToken } = require("../middlewares/auth.jwt");
 const { check } = require("express-validator");
 const { getAssignTraysVehiclesWithOutSupermarket, postAsignTraysVehicles,
-    getAssignTraysVehiclesWithSupermarket, putAssignTraysVehicles }
-    = require("../controllers/assign_trays_vehicles.controller")
+    getAssignTraysVehiclesWithSupermarket, putAssignTraysVehicles,
+    deleteAssignTraysVehiclesById } = require("../controllers/assign_trays_vehicles.controller")
 const { validateFields } = require("../middlewares/validate_fields")
 const router = Router();
 
@@ -34,5 +34,11 @@ router.put("/:assignTraysId", [
     check("assignTraysId", "No es un ID válido").isMongoId(),
     validateFields, verifyToken
 ], putAssignTraysVehicles)
+
+router.delete("/:assignTraysId", [
+    check("assignTraysId", "El id del vehiculo es obligatorio").not().isEmpty(),
+    check("assignTraysId", "No es un ID válido").isMongoId(),
+    validateFields, verifyToken
+], deleteAssignTraysVehiclesById)
 
 module.exports = router;

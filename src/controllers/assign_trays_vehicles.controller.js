@@ -184,12 +184,42 @@ const putAssignTraysVehicles = async (req, res) => {
     }
 }
 
-// TODO: se puede eliminar una asignacion de charolas a un vehiculo
+const deleteAssignTraysVehiclesById = async (req, res) => {
+    try {
+        const _id = req.params.assignTraysId;
+
+        const [assignTraysFound] = await Promise.all([
+                AssignTraysVehicles.findById({ _id }),
+            ]);
+
+        if (!assignTraysFound) return res.status(400).json({
+            status: 400, message: "Asignacion de charolas no encontrado"
+        });
+
+        if (!assignTraysFound.status_free) return res.status(400).json({
+            status: 400, message: "La asignacion ya ha sido seleccionada"
+        });
+
+        await Promise.all([
+            AssignTraysVehicles.findByIdAndDelete(_id),
+            Vehicle.findByIdAndUpdate(assignTraysFound['id_vehicle'], { status_assign: false }),
+        ]);
+
+        return res.status(201).json({
+            status: 201,
+            message: "Asignacion de charolas eliminada correctamente"
+        });
+
+    } catch (error) {
+        return res.status(400).json({ status: 400, message: "Error: " + error });
+    }
+}
 
 
 module.exports = {
     getAssignTraysVehiclesWithOutSupermarket,
     getAssignTraysVehiclesWithSupermarket,
     postAsignTraysVehicles,
-    putAssignTraysVehicles
+    putAssignTraysVehicles,
+    deleteAssignTraysVehiclesById
 }
