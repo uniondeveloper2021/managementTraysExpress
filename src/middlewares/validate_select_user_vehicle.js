@@ -62,10 +62,10 @@ const verifySelectUserVehicle = async (req, res, next) => {
             return res.status(202).json({ status: 202, message: "El vehiculo no esta libre" })
 
         if (!assignByIdVehicle)
-            return res.status(202).json({ status: 202, message: "El vehiculo no tiene una asignacion disponible" })
+            return res.status(202).json({ status: 202, message: "No cuentas con una asignacion de vehiculo" })
 
         if (!vehicleFound.status_assign)
-            return res.status(202).json({ status: 202, message: "El vehiculo no tiene charolas asignadas" })
+            return res.status(202).json({ status: 202, message: "No cuentas con una asignacion de vehiculo" })
 
         await Promise.all([
             Vehicle.findByIdAndUpdate(id_vehicle, { status_free: false }),

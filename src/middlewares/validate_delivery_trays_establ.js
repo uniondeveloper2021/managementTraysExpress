@@ -48,7 +48,7 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
             return res.status(202).json({ status: 202, message: "El usuario no es valido" });
 
         if (!assignByIdVehicle)
-            return res.status(202).json({ status: 202, message: "El vehiculo no tiene una asignacion disponible" });
+            return res.status(202).json({ status: 202, message: "No cuentas con una asignacion de vehiculo" });
 
         if (id_user_agent != assignByIdVehicle.id_user_supermark)
             return res.status(202).json({ status: 202, message: "El vehiculo no le pertenece" });
@@ -143,7 +143,7 @@ const verifyDeliveryTraysEstablishmentSunday = async (req, res, next) => {
             return res.status(202).json({ status: 202, message: "El usuario no es valido" });
 
         if (!assignByIdVehicle)
-            return res.status(202).json({ status: 202, message: "El vehiculo no tiene una asignacion disponible" });
+            return res.status(202).json({ status: 202, message: "No cuentas con una asignacion de vehiculo" });
 
         if (id_user_agent != assignByIdVehicle.id_user_supermark)
             return res.status(202).json({ status: 202, message: "El vehiculo no le pertenece" });
