@@ -130,7 +130,7 @@ const postDeliveryTraysEstabl = async (req, res) => {
         return res.status(201).json({
             status: 201, data: newDeliveryTraysEstablSaved,
             cant_trays: assignFound.cant_trays_delivery,
-            message: "Asignacion designado satisfactoriamente"
+            message: "Se realizo la entrega/recogo de charolas correctamente"
         });
 
     } catch (error) {
@@ -162,7 +162,7 @@ const postDeliveryTraysEstablDaySunday = async (req, res) => {
         return res.status(201).json({
             status: 201, data: newDeliveryTraysEstablSaved,
             cant_trays: assignFound.cant_trays_delivery,
-            message: "Asignacion designado satisfactoriamente"
+            message: "Se realizo la entrega/recogo de charolas correctamente"
         });
 
     } catch (error) {
