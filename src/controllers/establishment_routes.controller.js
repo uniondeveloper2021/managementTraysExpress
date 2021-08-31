@@ -14,7 +14,7 @@ const postEstablishmentRoute = async (req, res) => {
             User.findById(id_user_agent),
             Role.findOne({ name: "SUPMARK_AGENT_ROLE" }),
             Establishment.findById(id_establishment),
-            Day.findOne({number: number}),
+            Day.findOne({ number: number }),
         ]);
 
         if (!userFound)
@@ -92,6 +92,8 @@ const getEstablishmentByRouteAndIdUserGeneral = async (req, res, status_is_deliv
                     from: 'establishments', localField: 'id_establishment',
                     foreignField: '_id', as: 'establishment'
                 },
+            },
+            {
                 $lookup: {
                     from: 'users', localField: 'id_user_agent',
                     foreignField: '_id', as: 'user'

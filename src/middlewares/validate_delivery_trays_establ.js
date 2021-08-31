@@ -94,7 +94,7 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
         if (result < 0)
             return res.status(202).json({
                 status: 202, message: `No puedes sacar ${collected_trays} charolas porque el establecimiento no cuenta con esa cantidad`
-            }); 
+            });
 
         const total = assignByIdVehicle.cant_trays_delivery - trays_delivered + collected_trays;
         console.log("assignByIdVehicle.cant_trays_delivery: " + assignByIdVehicle.cant_trays_delivery);
