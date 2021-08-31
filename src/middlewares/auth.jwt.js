@@ -109,7 +109,7 @@ const verifyAccessAndGenerateRefreshToken = async (req, res, next) => {
             accesos.push(informacion[i].acceso)
         })
         const token = jwt.sign({ id: userFound["_id"] },
-            process.env.JWT_KEY, { expiresIn: "3d" })
+            process.env.JWT_KEY, { expiresIn: "24h" })
         req.accesos = accesos
         req.token = token
         next();
@@ -145,7 +145,7 @@ const verifyAccessAndGenerateToken = async (req, res, next) => {
             accesos.push(informacion[i].acceso)
         })
         const token = jwt.sign({ id: userFound[0]._id },
-            process.env.JWT_KEY, { expiresIn: "3d" })
+            process.env.JWT_KEY, { expiresIn: "24h" })
         req.accesos = accesos
         req.token = token
         next();

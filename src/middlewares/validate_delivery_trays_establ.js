@@ -44,9 +44,6 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
         if (!userFound)
             return res.status(202).json({ status: 202, message: "El usuario no existe" });
 
-        if (userFound.status_free)
-            return res.status(202).json({ status: 202, message: "El usuario no es valido" });
-
         if (!assignByIdVehicle)
             return res.status(202).json({ status: 202, message: "No cuentas con una asignacion de vehiculo" });
 
@@ -138,9 +135,6 @@ const verifyDeliveryTraysEstablishmentSunday = async (req, res, next) => {
 
         if (!userFound)
             return res.status(202).json({ status: 202, message: "El usuario no existe" });
-
-        if (userFound.status_free)
-            return res.status(202).json({ status: 202, message: "El usuario no es valido" });
 
         if (!assignByIdVehicle)
             return res.status(202).json({ status: 202, message: "No cuentas con una asignacion de vehiculo" });
