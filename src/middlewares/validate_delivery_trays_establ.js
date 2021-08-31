@@ -82,11 +82,7 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
 
         const cant_trays_establishment = establishmentFound['cant_trays']; // 0
 
-        console.log("establishmentFound['cant_trays']: " + establishmentFound['cant_trays']);
-
         const result = cant_trays_establishment + trays_delivered - collected_trays; // result = 0 + 0 - 0
-
-        console.log("result: " + result);
 
         if (result < 0)
             return res.status(202).json({
@@ -94,10 +90,7 @@ const verifyDeliveryTraysEstablishment = async (req, res, next) => {
             });
 
         const total = assignByIdVehicle.cant_trays_delivery - trays_delivered + collected_trays;
-        console.log("assignByIdVehicle.cant_trays_delivery: " + assignByIdVehicle.cant_trays_delivery);
-        console.log("trays_delivered: " + trays_delivered);
-        console.log("collected_trays: " + collected_trays);
-        console.log("total: " + total);
+
         if (total >= 0) {
             await Promise.all([
                 AssignTrayVehicle.findByIdAndUpdate(assignByIdVehicle._id,

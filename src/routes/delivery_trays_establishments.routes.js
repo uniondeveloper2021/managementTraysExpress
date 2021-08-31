@@ -2,7 +2,7 @@ const { Router } = require("express");
 const { verifyToken } = require("../middlewares/auth.jwt");
 const { check } = require("express-validator");
 const { getDeliveryTraysEstablishmentByIdUser, getDeliveryTraysEstablishment,
-    postDeliveryTraysEstabl }
+    postDeliveryTraysEstabl, postDeliveryTraysEstablDaySunday }
     = require("../controllers/delivery_trays_establishment.controller")
 const { validateFields } = require("../middlewares/validate_fields")
 const { verifyDeliveryTraysEstablishment, verifyDeliveryTraysEstablishmentSunday }
@@ -31,7 +31,7 @@ router.post("/", [
     validateFields, verifyToken, verifyDeliveryTraysEstablishment],
     postDeliveryTraysEstabl)
 
-router.post("/sunday", [
+router.post("/delivery-sunday", [
     check("trays_delivered", "Cantiad de charolas es obligatorio").not().isEmpty(),
     check("date", "La fecha es obligatorio").not().isEmpty(),
     check("collected_trays", "El id de agente es obligatorio").not().isEmpty(),
@@ -43,7 +43,7 @@ router.post("/sunday", [
     check("id_user_agent", "No es un ID válido").isMongoId(),
     check("id_establishment", "No es un ID válido").isMongoId(),
     check("id_incident", "No es un ID válido").isMongoId(),
-    validateFields, verifyToken, verifyDeliveryTraysEstablishment],
-    verifyDeliveryTraysEstablishmentSunday)
+    validateFields, verifyToken, verifyDeliveryTraysEstablishmentSunday],
+    postDeliveryTraysEstablDaySunday)
 
 module.exports = router;
