@@ -15,6 +15,7 @@ const deliveryTraysEstablishmentRoutes = require("./src/routes/delivery_trays_es
 const technicalSupportRoutes = require("./src/routes/technical.support.routes")
 
 const bodyParser = require("body-parser");
+require('dotenv').config();
 
 const version_api = '/v1/api'
 const connect = async () => {
@@ -27,7 +28,9 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.listen(process.env.PORT || 3000)
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`Server running on port ${process.env.PORT}`);
+})
 
 app.use(`${version_api}/auth`, authRoutes);
 app.use(`${version_api}/users`, userRoutes);

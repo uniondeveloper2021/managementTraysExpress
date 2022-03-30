@@ -13,7 +13,7 @@ const checkDuplicateUsernameOrEmail = async (req, res, next) => {
             return res.status(202).json({ status: 202, message: 'El usuario ya existe' })
 
         if (verifyUserGmail)
-            return res.status(202).json({ status: 202, message: 'El gmail ya existe' })
+            return res.status(202).json({ status: 202, message: 'El  gmail ya existe' })
         next();
     } catch (error) {
         return res.status(400).json({ status: 400, message: "Error: " + error });

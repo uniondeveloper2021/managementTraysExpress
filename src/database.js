@@ -1,14 +1,12 @@
 const mongoose = require("mongoose");
 const dbConnection = async () => {
   try {
-    await mongoose.connect(
-      "mongodb+srv://uniondeveloper:uniondeveloper2021$$@cluster0.9xkag.mongodb.net/managementcharolas?retryWrites=true&w=majority&ssl=true",
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-        useCreateIndex: true
-      },
+    mongoose.connect(process.env.DB_CONNECTION, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+      useCreateIndex: true
+    },
       (err, res) => {
         if (err) throw err;
         console.log("Base de Datos ONLINE");
